@@ -1,5 +1,7 @@
 package com.example.shanky.xpensecaldemo;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.menu.ExpandedMenuView;
@@ -14,7 +16,7 @@ public class Cal extends AppCompatActivity {
     int p1p2=0,p2p3=0,p1p3=0,p2p1=0,p3p1=0,p3p2=0;
     int spend_mode=1,amt;
     TextView tv1,tv2;
-    EditText e1;
+    EditText e1,e2;
 
 
     @Override
@@ -63,6 +65,7 @@ public class Cal extends AppCompatActivity {
             p1p3+=amt/3;
             Toast.makeText(this,"Data updated",Toast.LENGTH_SHORT).show();
             update();
+            mode1(view);
 
         }
         if(spend_mode==2){
@@ -72,6 +75,7 @@ public class Cal extends AppCompatActivity {
             p2p3+=amt/3;
             Toast.makeText(this,"Data updated",Toast.LENGTH_SHORT).show();
             update();
+            mode2(view);
 
         }
         if(spend_mode==3){
@@ -81,6 +85,7 @@ public class Cal extends AppCompatActivity {
             p3p2+=amt/3;
             Toast.makeText(this,"Data updated",Toast.LENGTH_SHORT).show();
             update();
+            mode3(view);
 
         }
 
@@ -111,4 +116,112 @@ public class Cal extends AppCompatActivity {
             p3p2=0;
         }
     }
+    public void pay1(final View view){
+
+        AlertDialog.Builder obj = new AlertDialog.Builder(this);
+        obj.setMessage("Enter the amount you wish to pay");
+        obj.setTitle("ALERT");
+         e2=new EditText(Cal.this);
+        obj.setView(e2);
+        obj.setPositiveButton("Pay",new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int amt=Integer.parseInt(e2.getText().toString());
+                switch (spend_mode){
+                    case 1:
+                        if(p2p1>=amt) {
+                            p2p1 -= amt;
+                            Toast.makeText(Cal.this,"Data Updated",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(Cal.this,"Invalid Amount",Toast.LENGTH_SHORT).show();
+                        mode1(view);
+                        break;
+                    case 2:
+                        if(p1p2>=amt) {
+                            p1p2 -= amt;
+                            Toast.makeText(Cal.this,"Data Updated",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(Cal.this,"Invalid Amount",Toast.LENGTH_SHORT).show();
+                        mode2(view);
+                        break;
+                    case 3:
+                        if(p2p3>=amt) {
+                            p2p3 -= amt;
+                            Toast.makeText(Cal.this,"Data Updated",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(Cal.this,"Invalid Amount",Toast.LENGTH_SHORT).show();
+                        mode3(view);
+                        break;
+                }
+
+            }
+        });
+        obj.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        obj.show();
+    }
+    public void pay2(final View view){
+
+        AlertDialog.Builder obj = new AlertDialog.Builder(this);
+        obj.setMessage("Enter the amount you wish to pay");
+        obj.setTitle("ALERT");
+        e2=new EditText(Cal.this);
+        obj.setView(e2);
+        obj.setPositiveButton("Pay",new DialogInterface.OnClickListener(){
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int amt=Integer.parseInt(e2.getText().toString());
+                switch (spend_mode){
+                    case 1:
+                        if(p3p1>=amt) {
+                            p3p1 -= amt;
+                            Toast.makeText(Cal.this,"Data Updated",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(Cal.this,"Invalid Amount",Toast.LENGTH_SHORT).show();
+                        mode1(view);
+                        break;
+                    case 2:
+                        if(p3p2>=amt) {
+                            p3p2 -= amt;
+                            Toast.makeText(Cal.this,"Data Updated",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(Cal.this,"Invalid Amount",Toast.LENGTH_SHORT).show();
+                        mode2(view);
+                        break;
+                    case 3:
+                        if(p1p3>=amt) {
+                            p1p3 -= amt;
+                            Toast.makeText(Cal.this,"Data Updated",Toast.LENGTH_SHORT).show();
+                        }
+                        else
+                            Toast.makeText(Cal.this,"Invalid Amount",Toast.LENGTH_SHORT).show();
+                        mode3(view);
+                        break;
+                }
+
+            }
+        });
+        obj.setNegativeButton("Cancel",new DialogInterface.OnClickListener() {
+
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        obj.show();
+    }
+
+
 }
